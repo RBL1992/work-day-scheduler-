@@ -1,13 +1,12 @@
 
 // THEN the current day is displayed at the top of the calendar
-
+var availableTimeBlocks = ['nineAm','tenAm','elevenAm','noon','onePm','twoPm','threePm','fourPm','fivePm'];
 function currentDay() {
     var day = moment().format('dddd');
     var currentDay = $('#currentDay');
     currentDay.text(day);
 };
 currentDay();
-
 $('.saveBtn').click(function(){
     // time - hour
     var time = $(this).siblings('textarea').attr('id')
@@ -83,3 +82,25 @@ $( ".hour" ).each(function( index ) {
 // THEN the saved events persist
 // adding click event to save button ...function to save to local storage
 // also displays user test after save button clicked"  
+
+function getLocalStorage(storeName) {
+    return localStorage.getItem(storeName);
+}
+
+// var storedInLocal = getLocalStorage('nineAm') // whats in local storage gets saved behind a javascript
+// getLocalStorage('nineAm'); // this is computed but then the result is never saved in memory
+
+// function setLocalStorage(storeName, dataToSave) {
+//     localStorage.setItem(storeName, dataToSave)
+// }
+// when we revisit the site, we want our old saves to show up immediately
+function loadPreviousTimeblocks(){
+    //we use the array above to perform a for loop on each string element
+    availableTimeBlocks.forEach(function(singleTimeblock){
+        //each string element is known as a `singleTimeBlock`
+        // target the element with the id of the singleTimeblock via jquery and then modify the text to reflect what is stored in localstorage under that timeblock key.
+        $(`#${singleTimeblock}`).text(getLocalStorage(singleTimeblock))
+    })
+
+}
+loadPreviousTimeblocks();
