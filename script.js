@@ -8,24 +8,18 @@ function currentDay() {
 };
 currentDay();
 
-
-// WHEN I scroll down
-// THEN I am presented with timeblocks for standard business hours
-// WHEN I click into a timeblock
-// THEN I can enter an event
-// WHEN I click the save button for that timeblock
-// THEN the text for that event is saved in local storage
-// WHEN I refresh the page
-// THEN the saved events persist
-// adding click event to save button ...function to save to local storage
-// also displays user test after save button clicked"
-
 $('.saveBtn').click(function(){
-    var nineAm = document.getElementById('nineAm').value;
+    // time - hour
+    // var time = $(this).siblings('textarea').attr('id')
+    // var val = $(this).siblings('textarea').val()
+    // localStorage.setItem(time, val);
+    
+    // get textarea
+    // save it to localstorage
+    var nineAm = $('#nineAm').val();
     localStorage.setItem('nineAm', nineAm);
     var displayNine = localStorage.getItem('nineAm');
     document.getElementById('nineAm').value = displayNine;
-
     var tenAm = document.getElementById('tenAm').value;
     localStorage.setItem('tenAm', tenAm);
     var displayTen = localStorage.getItem('tenAm');
@@ -61,9 +55,31 @@ $('.saveBtn').click(function(){
 
 });
 
-
-
 // WHEN I view the timeblocks for that day
 // THEN each timeblock is color coded to indicate whether it is in the past, present, or future
-//  var hour = getHours();
-//  console.log(hour);
+
+// loop
+$( ".hour" ).each(function( index ) {
+    // extract data-hour
+   var hour = $(this).data("hour");
+   // get current hour
+   var currentHour = moment().hour();
+    // compare
+   if (currentHour < hour) {
+    // future
+    $(this).siblings('textarea').addClass('future')
+   }else if(currentHour == hour) {
+    // present
+    $(this).siblings('textarea').addClass('present')
+   }else {
+    // past
+    $(this).siblings('textarea').addClass('past')
+   }
+  });
+
+
+// TODO on load we want to show values from localstorage
+// WHEN I refresh the page
+// THEN the saved events persist
+// adding click event to save button ...function to save to local storage
+// also displays user test after save button clicked"  
