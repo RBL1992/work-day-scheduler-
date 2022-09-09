@@ -1,13 +1,12 @@
 
 // function to display time
 
-function currentDateTime() {
-    var dateTime = moment().format('lll');
-    // console.log(dateTime)
+function currentDay() {
+    var day = moment().format('dddd');
     var currentDay = $('#currentDay');
-    currentDay.text(dateTime);
+    currentDay.text(day);
 };
-currentDateTime();
+currentDay();
 
 
 
